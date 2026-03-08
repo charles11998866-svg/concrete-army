@@ -1,166 +1,236 @@
-/* Moltbot Setup Shell - Dark Theme Styles */
+/* NOIR Dropshipping Store Styles */
 
-/* Font imports are in index.css */
-
-/* Root color tokens */
-:root {
-  --mb-bg: #0f0f10;
-  --mb-bg-elev: #141416;
-  --mb-fg: #F2F3F5;
-  --mb-muted: #9CA3AF;
-  --mb-border: #1f2022;
-  --mb-accent: #FF4500;
-  --mb-accent-600: #E63E00;
-  --mb-accent-700: #CC3700;
-  --mb-success: #22c55e;
-  --mb-warning: #f59e0b;
-  --mb-error: #ef4444;
-  --mb-ring: #FF4500;
-  --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-body: 'Fira Sans', ui-sans-serif, system-ui, sans-serif;
-}
-
-/* Heading font class */
-.heading {
-  font-family: var(--font-heading);
-}
-
-/* Background noise texture overlay */
-.texture-noise {
-  position: fixed;
-  inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1763386599791-fd86c07e1c86?auto=format&fit=crop&w=1200&q=60');
-  background-size: cover;
-  opacity: 0.04;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Main app container */
 .App {
   min-height: 100vh;
-  background-color: var(--mb-bg);
-  color: var(--mb-fg);
-  font-family: var(--font-body);
+  background-color: #09090b;
+  color: #fafafa;
+  position: relative;
 }
 
-/* Primary button styles */
-.btn-primary {
-  background: var(--mb-accent);
-  color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(255, 69, 0, 0.18);
-  transition: background-color 0.15s ease-out;
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.btn-primary:hover:not(:disabled) {
-  background: var(--mb-accent-600);
+/* Hero section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-primary:focus-visible {
-  outline: 2px solid var(--mb-accent);
-  outline-offset: 2px;
+.hero-content {
+  position: relative;
+  z-index: 10;
 }
 
-.btn-primary:active:not(:disabled) {
-  transform: scale(0.98);
+/* Product grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
 }
 
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+@media (min-width: 640px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-/* Input focus styles */
-input:focus-visible,
-select:focus-visible,
-button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.15);
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-/* Progress bar animation */
-.progress-bar {
-  transition: width 0.3s ease-out;
+@media (min-width: 1280px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-/* Smooth page transitions */
-.page-enter {
+/* Cart sidebar */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  z-index: 100;
+  background: #18181b;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+}
+
+.cart-sidebar.open {
+  transform: translateX(0);
+}
+
+/* Cart overlay */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 90;
   opacity: 0;
-  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.3s;
 }
 
-.page-enter-active {
+.cart-overlay.open {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 200ms ease-out, transform 200ms ease-out;
+  pointer-events: auto;
 }
 
-/* Card hover effect */
-.setup-card {
-  transition: box-shadow 0.2s ease-out;
+/* Quantity selector */
+.quantity-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-.setup-card:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+.quantity-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* API key input monospace */
-.api-key-input {
-  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', 'Droid Sans Mono', monospace;
-  letter-spacing: 0.05em;
+/* Category pills */
+.category-pill {
+  padding: 0.5rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: #a1a1aa;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.category-pill:hover,
+.category-pill.active {
+  background: white;
+  color: black;
+  border-color: white;
+}
+
+/* Search input */
+.search-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  color: white;
+  width: 100%;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.search-input::placeholder {
+  color: #71717a;
+}
+
+.search-input:focus {
+  border-color: rgba(139, 92, 246, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Checkout section */
+.checkout-section {
+  min-height: 100vh;
+  padding-top: 100px;
+}
+
+/* Toast notifications */
+.toast-success {
+  background: #10b981;
+  color: white;
+}
+
+.toast-error {
+  background: #ef4444;
+  color: white;
 }
 
 /* Loading spinner */
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-/* Error alert styling */
-.error-alert {
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  background: rgba(239, 68, 68, 0.1);
-  color: #fca5a5;
-}
-
-/* Status indicator */
-.status-dot {
-  width: 8px;
-  height: 8px;
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #8b5cf6;
   border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
-.status-dot.running {
-  background: var(--mb-success);
-  box-shadow: 0 0 8px var(--mb-success);
+/* Badge */
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: #8b5cf6;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.status-dot.stopped {
-  background: var(--mb-error);
+/* AI description box */
+.ai-description {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  padding: 1rem;
+  position: relative;
 }
 
-/* Responsive adjustments */
-@media (max-width: 640px) {
-  .App {
-    padding: 0 1rem;
-  }
+.ai-description::before {
+  content: 'AI';
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  background: #8b5cf6;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  letter-spacing: 0.1em;
 }
 
-/* Reduced motion preferences */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .page-enter-active,
-  .btn-primary,
-  .setup-card {
+  .product-card,
+  .product-card img,
+  .cart-sidebar,
+  .cart-overlay {
     transition: none;
   }
   
-  .animate-spin {
+  .loading-spinner {
     animation: none;
   }
 }

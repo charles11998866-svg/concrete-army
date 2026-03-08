@@ -1135,8 +1135,12 @@ async def get_status_checks():
     return status_checks
 
 
-# Include the router in the main app
+# Import and include store routes
+from store_routes import store_router
+
+# Include the routers in the main app
 app.include_router(api_router)
+app.include_router(store_router)
 
 app.add_middleware(
     CORSMiddleware,
